@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #fbf8f1;
+  --color-paper-2: #f4efe3;
+  --color-card: #ffffff;
+  --color-line: #e6dfcf;
+  --color-line-2: #d3c9b3;
+  --color-ink: #16142e;
+  --color-muted: #4b4862;
+  --color-faint: #6c6982;
+  --color-indigo: #2c2a8f;
+  --color-indigo-2: #201e6c;
+  --color-indigo-soft: #e9e8f8;
+  --color-gold: #e9a516;
+  --color-gold-soft: #fdf1d4;
+  --color-gold-ink: #845400;
+  --color-ok: #1d7650;
+  --color-ok-soft: #e3f3ea;
+  --color-bad: #b0283a;
+  --color-bad-soft: #fbe7ea;
+  --font-display: "Fraunces", Georgia, serif;
+  --font-sans: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+
+@layer base {
+  html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+  body { background: var(--color-paper); color: var(--color-ink); font-family: var(--font-sans); }
+  h1, h2, h3 { font-family: var(--font-display); letter-spacing: -0.015em; color: var(--color-ink); font-optical-sizing: auto; }
+  :focus-visible { outline: 2.5px solid var(--color-indigo); outline-offset: 2px; border-radius: 6px; }
+  ::selection { background: rgba(233, 165, 22, 0.35); }
+}
+
+@layer components {
+  .wrap { @apply mx-auto w-full max-w-[1180px] px-5 sm:px-8; }
+  .eyebrow { @apply font-mono text-[0.72rem] font-medium uppercase tracking-[0.16em] text-indigo; }
+  .h1 { @apply font-display text-[clamp(2.4rem,5.6vw,4.3rem)] font-semibold leading-[1.02]; }
+  .h2 { @apply font-display text-[clamp(1.9rem,3.8vw,2.85rem)] font-semibold leading-[1.08]; }
+  .lede { @apply mt-4 max-w-2xl text-[1.06rem] leading-relaxed text-muted; }
+  .card { @apply rounded-2xl border border-line bg-card; }
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold transition duration-150 disabled:cursor-not-allowed disabled:opacity-60; }
+  .btn-primary { @apply bg-indigo text-white hover:bg-indigo-2; }
+  .btn-gold { @apply bg-gold text-ink hover:brightness-95; }
+  .btn-line { @apply border border-line-2 bg-card text-ink hover:border-indigo hover:text-indigo; }
+  .btn-ghost { @apply text-muted hover:bg-paper-2 hover:text-ink; }
+  .btn-sm { @apply px-3.5 py-1.5 text-[0.8rem]; }
+  .btn-lg { @apply px-6 py-3.5 text-[0.95rem]; }
+  .input { @apply w-full rounded-xl border border-line-2 bg-white px-3.5 py-2.5 text-sm text-ink placeholder:text-faint focus:border-indigo focus:outline-none focus:ring-2 focus:ring-indigo/25; }
+  .label { @apply mb-1.5 block text-[0.83rem] font-semibold text-ink; }
+  .chip { @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[0.72rem] font-bold; }
+  .th { @apply px-3 py-2.5 text-left font-mono text-[0.68rem] font-medium uppercase tracking-wider text-faint; }
+  .td { @apply border-t border-line px-3 py-3 text-sm; }
+  .prose-legal h2 { @apply mt-10 font-display text-2xl font-semibold; }
+  .prose-legal p, .prose-legal li { @apply mt-3 leading-relaxed text-muted; }
+  .prose-legal ul { @apply ml-5 list-disc; }
+  .prose-legal a { @apply text-indigo underline; }
+}
+
+.bubble { width: 14px; height: 14px; border-radius: 999px; border: 1.5px solid currentColor; display: inline-block; }
+.bubble.on { background: var(--color-gold); border-color: var(--color-gold); }
+.dots { background-image: radial-gradient(rgba(44,42,143,.13) 1.2px, transparent 1.2px); background-size: 18px 18px; }
+
+.reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s cubic-bezier(.2,.7,.2,1), transform .6s cubic-bezier(.2,.7,.2,1); }
+.reveal.in { opacity: 1; transform: none; }
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.rise { animation: rise .7s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.spin { animation: spin 1s linear infinite; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .rise, .spin { animation: none; }
+}
+noscript + #root:empty { display: none; }
